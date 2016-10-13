@@ -1,5 +1,8 @@
 # docker-ptxdist-armv5te
 
+The Ptxdist embedded build tools bundled together with the OSELAS gcc
+toolchain targeted at arm-v5te.
+
 This Software package builds a docker image that contains a cross toolchain
 for software development and for building Linux kernels and Linux rootfs
 images, all based on the famous PTXdist embedded Linux build tools.
