@@ -1,6 +1,6 @@
 #
 # Automatically generated file; DO NOT EDIT.
-# PTXdist 2013.12.0
+# PTXdist 2017.09.0
 #
 
 #
@@ -11,7 +11,7 @@
 # User              
 #
 PTXCONF_SETUP_USER_NAME="DYNA Instruments GmbH"
-PTXCONF_SETUP_USER_EMAIL="info@dynainstruments.com"
+PTXCONF_SETUP_USER_EMAIL="info (at) dynainstruments.com"
 
 #
 # Proxies           

@@ -16,10 +16,10 @@ RUN \
 COPY dot_ptxdist /home/ptxdist/.ptxdist/
 
 # the build tree shall not be part of the image
-VOLUME /home/ptxdist/build
+# VOLUME /home/ptxdist/build
 
 # the normal distfiles storage shall not be part of the image
-VOLUME /home/ptxdist/distfiles
+# VOLUME /home/ptxdist/distfiles
 
 # correct the ownership
 USER root
@@ -33,27 +33,78 @@ RUN su - ptxdist -c "\
     cd /home/ptxdist/distfiles \
  && test -f ptxdist-2016.06.1.tar.bz2.md5 \
  || wget http://public.pengutronix.de/software/ptxdist/ptxdist-2016.06.1.tar.bz2.md5 \
+"
+
+RUN su - ptxdist -c "\
+    export http_proxy=$http_proxy; \
+    export https_proxy=$http_proxy; \
+    export ftp_proxy=$http_proxy; \
+    cd /home/ptxdist/distfiles \
  && test -f ptxdist-2016.06.1.tar.bz2 \
  || wget http://public.pengutronix.de/software/ptxdist/ptxdist-2016.06.1.tar.bz2 \
  && md5sum -c ptxdist-2016.06.1.tar.bz2.md5 \
+"
+
+RUN su - ptxdist -c "\
+    export http_proxy=$http_proxy; \
+    export https_proxy=$http_proxy; \
+    export ftp_proxy=$http_proxy; \
+    cd /home/ptxdist/distfiles \
  && test -f OSELAS.Toolchain-2016.06.1.tar.bz2.md5 \
  || wget http://public.pengutronix.de/oselas/toolchain/OSELAS.Toolchain-2016.06.1.tar.bz2.md5 \
+"
+
+RUN su - ptxdist -c "\
+    export http_proxy=$http_proxy; \
+    export https_proxy=$http_proxy; \
+    export ftp_proxy=$http_proxy; \
+    cd /home/ptxdist/distfiles \
  && test -f OSELAS.Toolchain-2016.06.1.tar.bz2 \
  || wget http://public.pengutronix.de/oselas/toolchain/OSELAS.Toolchain-2016.06.1.tar.bz2 \
  && md5sum -c OSELAS.Toolchain-2016.06.1.tar.bz2.md5 \
+"
+
+RUN su - ptxdist -c "\
+    cd /home/ptxdist/distfiles \
  && tar -axf ptxdist-2016.06.1.tar.bz2 -C /home/ptxdist/build \
- && cd /home/ptxdist/build/ptxdist-2016.06.1 \
+"
+
+RUN su - ptxdist -c "\
+    cd /home/ptxdist/build/ptxdist-2016.06.1 \
  && ./configure --prefix=/home/ptxdist --without-bash-completion \
+"
+
+RUN su - ptxdist -c "\
+    export http_proxy=$http_proxy; \
+    export https_proxy=$http_proxy; \
+    export ftp_proxy=$http_proxy; \
+    cd /home/ptxdist/build/ptxdist-2016.06.1 \
  && make -j$(( $(/usr/bin/getconf _NPROCESSORS_ONLN) * 2)) \
+"
+
+RUN su - ptxdist -c "\
+    cd /home/ptxdist/build/ptxdist-2016.06.1 \
  && make install \
- && cd /home/ptxdist/distfiles \
+"
+
+RUN su - ptxdist -c "\
+    cd /home/ptxdist/distfiles \
  && tar -axf OSELAS.Toolchain-2016.06.1.tar.bz2 -C /home/ptxdist/build \
- && cd /home/ptxdist/build/OSELAS.Toolchain-2016.06.1 \
+"
+
+RUN su - ptxdist -c "\
+    export http_proxy=$http_proxy; \
+    export https_proxy=$http_proxy; \
+    export ftp_proxy=$http_proxy; \
+    cd /home/ptxdist/build/OSELAS.Toolchain-2016.06.1 \
  && /home/ptxdist/bin/ptxdist select ptxconfigs/arm-v5te-linux-gnueabi_gcc-5.4.0_glibc-2.23_binutils-2.26_kernel-4.6-sanitized.ptxconfig \
  && /home/ptxdist/bin/ptxdist oldconfig \
  && /home/ptxdist/bin/ptxdist go \
  && chmod -R a-w /opt/OSELAS.Toolchain-2016.06.1 \
- && cd /home/ptxdist/build \
+"
+
+RUN su - ptxdist -c "\
+    cd /home/ptxdist/build \
  && rm -rf ptxdist-2016.06.1 OSELAS.Toolchain-2016.06.1 \
 "
 
@@ -65,15 +116,43 @@ RUN su - ptxdist -c "\
     cd /home/ptxdist/distfiles \
  && test -f ptxdist-2017.09.0.tar.bz2.md5 \
  || wget http://public.pengutronix.de/software/ptxdist/ptxdist-2017.09.0.tar.bz2.md5 \
+"
+
+RUN su - ptxdist -c "\
+    export http_proxy=$http_proxy; \
+    export https_proxy=$http_proxy; \
+    export ftp_proxy=$http_proxy; \
+    cd /home/ptxdist/distfiles \
  && test -f ptxdist-2017.09.0.tar.bz2 \
  || wget http://public.pengutronix.de/software/ptxdist/ptxdist-2017.09.0.tar.bz2 \
  && md5sum -c ptxdist-2017.09.0.tar.bz2.md5 \
+"
+
+RUN su - ptxdist -c "\
+    cd /home/ptxdist/distfiles \
  && tar -axf ptxdist-2017.09.0.tar.bz2 -C /home/ptxdist/build \
- && cd /home/ptxdist/build/ptxdist-2017.09.0 \
+"
+
+RUN su - ptxdist -c "\
+    cd /home/ptxdist/build/ptxdist-2017.09.0 \
  && ./configure --prefix=/home/ptxdist --without-bash-completion \
+"
+
+RUN su - ptxdist -c "\
+    export http_proxy=$http_proxy; \
+    export https_proxy=$http_proxy; \
+    export ftp_proxy=$http_proxy; \
+    cd /home/ptxdist/build/ptxdist-2017.09.0 \
  && make -j$(( $(/usr/bin/getconf _NPROCESSORS_ONLN) * 2)) \
+"
+
+RUN su - ptxdist -c "\
+    cd /home/ptxdist/build/ptxdist-2017.09.0 \
  && make install \
- && cd /home/ptxdist/build \
+"
+
+RUN su - ptxdist -c "\
+    cd /home/ptxdist/build \
  && rm -rf ptxdist-2017.09.0 \
 "
 
